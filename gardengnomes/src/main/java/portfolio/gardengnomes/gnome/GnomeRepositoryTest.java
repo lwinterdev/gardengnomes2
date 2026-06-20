@@ -11,8 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class GnomeRepositoryTest {
 
-    @Autowired
-    private GnomeRepository repository;
+    private final GnomeRepository repository;
+
+    GnomeRepositoryTest(GnomeRepository repository) {
+        this.repository = repository;
+    }
 
     @Test
     void shouldSaveAndRetrieveGnome() {

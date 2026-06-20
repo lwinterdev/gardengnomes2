@@ -30,7 +30,7 @@ public class GnomeService {
     public Gnome update(UUID id, Gnome updated) {
         Gnome existing = findById(id);
 
-        existing.setUsername(updated.getUsername());
+        existing.setUserName(updated.getUserName());
         existing.setDisplayName(updated.getDisplayName());
 
         return repository.save(existing);
