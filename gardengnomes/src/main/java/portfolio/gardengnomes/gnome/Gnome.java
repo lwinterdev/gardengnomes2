@@ -40,4 +40,8 @@ public class Gnome {
         username = newUserName;
         return newUserName;
     }
+
+    public UUID getId(){
+        return this.id;
+    }
 }
