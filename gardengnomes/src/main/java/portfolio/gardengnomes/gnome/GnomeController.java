@@ -1,5 +1,6 @@
 package portfolio.gardengnomes.gnome;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import portfolio.gardengnomes.gnome.dto.CreateGnomeRequest;
@@ -19,6 +20,7 @@ public class GnomeController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public GnomeResponse create(@RequestBody CreateGnomeRequest request) {
         return service.create(request);
     }

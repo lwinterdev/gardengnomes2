@@ -17,9 +17,29 @@ public class User {
 
     private String passwordHash;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     private boolean enabled = true;
 
     // getters/setters
+    public String getPassword(){
+        return this.passwordHash;
+    }
+
+    public void setPassword(String newPassword){
+        this.passwordHash = newPassword;
+    }
+
+    public String getUserName(){
+        return this.username;
+    }
+
+    public Role getRole(){
+        return this.role;
+    }
+
+    public void setRole(Role newRole){
+        this.role = newRole ;
+    }
 }

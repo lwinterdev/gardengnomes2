@@ -1,7 +1,8 @@
 package portfolio.gardengnomes.user;
 
-public public enum Role {
+public enum Role {
     ADMIN,
     EDITOR,
-    MODERATOR
+    MODERATOR,
+    USER
 } 
