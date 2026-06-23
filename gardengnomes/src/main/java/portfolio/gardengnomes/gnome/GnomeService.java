@@ -2,6 +2,9 @@ package portfolio.gardengnomes.gnome;
 
 import org.springframework.stereotype.Service;
 
+import portfolio.gardengnomes.gnome.dto.CreateGnomeRequest;
+import portfolio.gardengnomes.gnome.dto.GnomeResponse;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -14,29 +17,46 @@ public class GnomeService {
         this.repository = repository;
     }
 
-    public Gnome create(Gnome gnome) {
-        return repository.save(gnome);
+    public GnomeResponse create(CreateGnomeRequest request) {
+
+        // DTO → Entity
+        Gnome gnome = new Gnome();
+        gnome.setUserName(request.getUsername());
+        gnome.setDisplayName(request.getDisplayName());
+
+        Gnome saved = repository.save(gnome);
+
+        // Entity → DTO
+        return toResponse(saved);
     }
 
-    public List<Gnome> findAll() {
-        return repository.findAll();
+    public List<GnomeResponse> findAll() {
+        return repository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
-    public Gnome findById(UUID id) {
-        return repository.findById(id)
+    public GnomeResponse findById(UUID id) {
+        Gnome gnome = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Gnome not found"));
-    }
 
-    public Gnome update(UUID id, Gnome updated) {
-        Gnome existing = findById(id);
-
-        existing.setUserName(updated.getUserName());
-        existing.setDisplayName(updated.getDisplayName());
-
-        return repository.save(existing);
+        return toResponse(gnome);
     }
 
     public void delete(UUID id) {
         repository.deleteById(id);
+    }
+
+    // mapper
+    private GnomeResponse toResponse(Gnome gnome) {
+        GnomeResponse dto = new GnomeResponse();
+
+        dto.setId(gnome.getId());
+        dto.setUsername(gnome.getUserName());
+        dto.setDisplayName(gnome.getDisplayName());
+        dto.setCreatedAt(gnome.getCreatedAt());
+
+        return dto;
     }
 }

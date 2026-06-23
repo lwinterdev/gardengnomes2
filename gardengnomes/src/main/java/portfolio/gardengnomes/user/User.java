@@ -1,3 +1,9 @@
+package portfolio.gardengnomes.user;
+
+import jakarta.persistence.*;
+import java.util.UUID;
+
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -11,7 +17,6 @@ public class User {
 
     private String passwordHash;
 
-    @Enumerated(EnumType.STRING)
     private Role role;
 
     private boolean enabled = true;

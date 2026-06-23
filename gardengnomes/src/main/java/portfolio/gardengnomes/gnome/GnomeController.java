@@ -2,6 +2,9 @@ package portfolio.gardengnomes.gnome;
 
 import org.springframework.web.bind.annotation.*;
 
+import portfolio.gardengnomes.gnome.dto.CreateGnomeRequest;
+import portfolio.gardengnomes.gnome.dto.GnomeResponse;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -16,23 +19,18 @@ public class GnomeController {
     }
 
     @PostMapping
-    public Gnome create(@RequestBody Gnome gnome) {
-        return service.create(gnome);
+    public GnomeResponse create(@RequestBody CreateGnomeRequest request) {
+        return service.create(request);
     }
 
     @GetMapping
-    public List<Gnome> getAll() {
+    public List<GnomeResponse> getAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Gnome getById(@PathVariable UUID id) {
+    public GnomeResponse getById(@PathVariable UUID id) {
         return service.findById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Gnome update(@PathVariable UUID id, @RequestBody Gnome gnome) {
-        return service.update(id, gnome);
     }
 
     @DeleteMapping("/{id}")

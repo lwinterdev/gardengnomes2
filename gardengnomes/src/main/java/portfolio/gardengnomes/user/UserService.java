@@ -19,9 +19,22 @@ public class UserService {
         return repository.save(user);
     }
 
+    public List<User> findAll() {
+        return repository.findAll();
+    }
+
+    public User findById(UUID id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public void delete(UUID id) {
+        repository.deleteById(id);
+    }
+
     public Optional<User> findByUsername(String username) {
         return repository.findByUsername(username);
     }
-} 
+}
     
 

@@ -44,4 +44,8 @@ public class Gnome {
     public UUID getId(){
         return this.id;
     }
+
+    public Instant getCreatedAt(){
+        return this.createdAt;
+    }
 }
