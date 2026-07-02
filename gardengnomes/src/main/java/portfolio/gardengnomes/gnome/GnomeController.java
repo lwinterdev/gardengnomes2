@@ -26,8 +26,15 @@ public class GnomeController {
     }
 
     @GetMapping
-    public List<GnomeResponse> getAll() {
-        return service.findAll();
+    public Page<Gnome> findAll(int page, int size, String sortBy) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(sortBy).descending()
+        );
+
+        return repository.findAll(pageable);
     }
 
     @GetMapping("/{id}")
@@ -36,6 +43,7 @@ public class GnomeController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable UUID id) {
         service.delete(id);
     }

@@ -1,11 +1,12 @@
 package portfolio.gardengnomes.gnome;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.*;
 
 import portfolio.gardengnomes.gnome.dto.CreateGnomeRequest;
 import portfolio.gardengnomes.gnome.dto.GnomeResponse;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,12 +31,18 @@ public class GnomeService {
         return toResponse(saved);
     }
 
-    public List<GnomeResponse> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(this::toResponse)
-                .toList();
+    // READ ALL (pagination + sorting)
+    public Page<Gnome> findAll(int page, int size, String sortBy) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(sortBy).descending()
+        );
+
+        return repository.findAll(pageable);
     }
+
 
     public GnomeResponse findById(UUID id) {
         Gnome gnome = repository.findById(id)
