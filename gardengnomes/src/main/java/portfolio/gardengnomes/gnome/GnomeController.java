@@ -2,11 +2,11 @@ package portfolio.gardengnomes.gnome;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 
 import portfolio.gardengnomes.gnome.dto.CreateGnomeRequest;
 import portfolio.gardengnomes.gnome.dto.GnomeResponse;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,16 +25,16 @@ public class GnomeController {
         return service.create(request);
     }
 
+  // READ ALL (pagination + sorting)
     @GetMapping
-    public Page<Gnome> findAll(int page, int size, String sortBy) {
+    public Page<Gnome> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "") String search
 
-        Pageable pageable = PageRequest.of(
-                page,
-                size,
-                Sort.by(sortBy).descending()
-        );
-
-        return repository.findAll(pageable);
+    ) {
+        return service.findAll(page, size, sortBy ,search);
     }
 
     @GetMapping("/{id}")

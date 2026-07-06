@@ -1,6 +1,5 @@
 package portfolio.gardengnomes.gnome;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.*;
 
@@ -32,15 +31,21 @@ public class GnomeService {
     }
 
     // READ ALL (pagination + sorting)
-    public Page<Gnome> findAll(int page, int size, String sortBy) {
+   public Page<Gnome> findAll(int page, int size, String sortBy, String search) {
 
-        Pageable pageable = PageRequest.of(
-                page,
-                size,
-                Sort.by(sortBy).descending()
-        );
+    Pageable pageable = PageRequest.of(
+            page,
+            size,
+            Sort.by(sortBy).descending()
+    );
 
+    // if no search term → return all
+    if (search == null || search.isBlank()) {
         return repository.findAll(pageable);
+    }
+
+    // if search exists → filter by displayName
+    return repository.findByNameContainingIgnoreCase(search, pageable);
     }
 
 
