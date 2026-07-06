@@ -29,4 +29,10 @@ public class FeedEventService {
     public List<FeedEvent> findAll() {
         return repository.findAll();
     }
+
+  
+
+   
+
+
 }

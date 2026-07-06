@@ -17,13 +17,13 @@ public class FeedEvent {
     private UUID actorId;
 
     @Column(nullable = false)
-    private String type;
+    private FeedEventActionType type;
 
     @Column(name = "entity_id")
     private UUID entityId;
 
     @Column(name = "entity_type")
-    private String entityType;
+    private FeedEventEntityType entityType;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -44,11 +44,11 @@ public class FeedEvent {
         this.actorId = actorId;
     }
 
-    public String getType() {
+    public FeedEventActionType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(FeedEventActionType type) {
         this.type = type;
     }
 
@@ -60,11 +60,11 @@ public class FeedEvent {
         this.entityId = entityId;
     }
 
-    public String getEntityType() {
+    public FeedEventEntityType getEntityType() {
         return entityType;
     }
 
-    public void setEntityType(String entityType) {
+    public void setEntityType(FeedEventEntityType entityType) {
         this.entityType = entityType;
     }
 

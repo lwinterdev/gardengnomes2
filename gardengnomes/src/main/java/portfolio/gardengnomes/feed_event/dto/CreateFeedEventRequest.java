@@ -2,12 +2,15 @@ package portfolio.gardengnomes.feed_event.dto;
 
 import java.util.UUID;
 
+import portfolio.gardengnomes.feed_event.FeedEventEntityType;
+import portfolio.gardengnomes.feed_event.FeedEventActionType;
+
 public class CreateFeedEventRequest {
 
     private UUID actorId;
-    private String type;
+    private FeedEventActionType type;
     private UUID entityId;
-    private String entityType;
+    private FeedEventEntityType entityType;
 
     public UUID getActorId() {
         return actorId;
@@ -17,11 +20,11 @@ public class CreateFeedEventRequest {
         this.actorId = actorId;
     }
 
-    public String getType() {
+    public FeedEventActionType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(FeedEventActionType type) {
         this.type = type;
     }
 
@@ -33,11 +36,11 @@ public class CreateFeedEventRequest {
         this.entityId = entityId;
     }
 
-    public String getEntityType() {
+    public FeedEventEntityType getEntityType() {
         return entityType;
     }
 
-    public void setEntityType(String entityType) {
+    public void setEntityType(FeedEventEntityType entityType) {
         this.entityType = entityType;
     }
 }
