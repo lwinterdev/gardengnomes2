@@ -2,6 +2,9 @@ package portfolio.gardengnomes.user;
 
 import org.springframework.web.bind.annotation.*;
 
+import portfolio.gardengnomes.user.dto.CreateUserRequest;
+import portfolio.gardengnomes.user.dto.UserResponse;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@RequestBody User user) {
+    public UserResponse create(@RequestBody CreateUserRequest user) {
         return service.create(user);
     }
 

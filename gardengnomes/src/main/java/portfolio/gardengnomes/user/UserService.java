@@ -1,6 +1,9 @@
 package portfolio.gardengnomes.user;
 
 import org.springframework.stereotype.Service;
+import portfolio.gardengnomes.gnome.exceptions.InvalidGnomeException;
+import portfolio.gardengnomes.user.dto.CreateUserRequest;
+import portfolio.gardengnomes.user.dto.UserResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +18,20 @@ public class UserService {
         this.repository = repository;
     }
 
-    public User create(User user) {
-        return repository.save(user);
+    public UserResponse create(CreateUserRequest request) {
+         // basic validation (business rules belong in service)
+
+        if (request.getUsername() == null || request.getUsername().isBlank()) {
+            throw new InvalidGnomeException("Username cannot be empty");
+        }
+
+        // DTO → Entity
+        User user = new User();
+        user.setUserName(request.getUsername());
+
+        User saved = repository.save(user);
+
+        return toResponse(saved);
     }
 
     public List<User> findAll() {
@@ -34,6 +49,18 @@ public class UserService {
 
     public Optional<User> findByUsername(String username) {
         return repository.findByUsername(username);
+    }
+
+     // mapper
+    private UserResponse toResponse(User user) {
+
+        UserResponse dto = new UserResponse();
+
+        dto.setId(user.getId());
+        dto.setUserName(user.getUserName());
+        dto.setCreatedAt(user.getCreatedAt());
+
+        return dto;
     }
 }
     

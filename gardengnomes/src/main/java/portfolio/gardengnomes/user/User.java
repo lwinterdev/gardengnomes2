@@ -1,6 +1,8 @@
 package portfolio.gardengnomes.user;
 
 import jakarta.persistence.*;
+
+import java.time.Instant;
 import java.util.UUID;
 
 
@@ -16,6 +18,9 @@ public class User {
     private String username;
 
     private String passwordHash;
+
+    private Instant createdAt;
+
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -35,11 +40,23 @@ public class User {
         return this.username;
     }
 
+    public void setUserName(String newUsername){
+        this.username = newUsername;
+    }
+
     public Role getRole(){
         return this.role;
     }
 
     public void setRole(Role newRole){
         this.role = newRole ;
+    }
+
+      public UUID getId(){
+        return this.id;
+    }
+
+    public Instant getCreatedAt(){
+        return this.createdAt;
     }
 }
