@@ -15,6 +15,11 @@ public class GnomeResponse {
     private String displayName;
     private Instant createdAt;
 
-
+    public GnomeResponse(UUID id, String username, String displayName, Instant createdAt) {
+        this.id = id;
+        this.username = username;
+        this.displayName = displayName;
+        this.createdAt = createdAt;
+    }
 
 }

@@ -61,7 +61,7 @@ public class GnomeService {
             return repository.findAll(pageable);
         }
 
-        return repository.findByNameContainingIgnoreCase(search, pageable);
+        return repository.findByDisplayNameContainingIgnoreCase(search, pageable);
     }
 
     // READ BY ID
@@ -86,13 +86,7 @@ public class GnomeService {
     // mapper
     private GnomeResponse toResponse(Gnome gnome) {
 
-        GnomeResponse dto = new GnomeResponse();
+        return new GnomeResponse(gnome.getId(),gnome.getUsername(),gnome.getDisplayName(),gnome.getCreatedAt());
 
-        dto.setId(gnome.getId());
-        dto.setUsername(gnome.getUserName());
-        dto.setDisplayName(gnome.getDisplayName());
-        dto.setCreatedAt(gnome.getCreatedAt());
-
-        return dto;
     }
 }

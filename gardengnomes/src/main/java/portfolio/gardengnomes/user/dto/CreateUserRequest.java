@@ -11,7 +11,8 @@ import portfolio.gardengnomes.user.Role;
 public class CreateUserRequest {
     private UUID id;
     private String username;
-    private String passwordHash;
+    private String email;
+    private String password;
     private Role role;
     private boolean enabled = true;
 }

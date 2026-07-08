@@ -13,8 +13,7 @@ import portfolio.gardengnomes.user.dto.UserResponse;
 @RequestMapping("/auth")
 public class AuthController {
 
-
-     private final AuthService service;
+    private final AuthService service;
 
     public AuthController(AuthService service) {
        this.service = service;    
@@ -22,7 +21,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public UserResponse register(
-            @Validated @RequestBody RegisterUserRequest request
+        @Validated @RequestBody RegisterUserRequest request
     ) {
 
         return service.register(request);

@@ -17,35 +17,38 @@ public class User {
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(name = "created_at")
     private Instant createdAt;
-
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     private boolean enabled = true;
 
-       public User(
+    protected User() {
+    }
+
+    public User(
             String username,
             String email,
-            String password
-    ) {
+            String password,
+            Role role,
+        Boolean enabled) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = Role.USER;
+        this.role = role;
         this.createdAt = Instant.now();
-        this.enabled = true;
+        this.enabled = enabled;
     }
 
-
-    
 }

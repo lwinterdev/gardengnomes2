@@ -1,5 +1,6 @@
 package portfolio.gardengnomes.user;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import portfolio.gardengnomes.gnome.exceptions.InvalidGnomeException;
 import portfolio.gardengnomes.user.dto.CreateUserRequest;
@@ -13,21 +14,27 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository repository;
+    private final PasswordEncoder encoder;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, PasswordEncoder encoder) {
         this.repository = repository;
+        this.encoder = encoder;
     }
 
     public UserResponse create(CreateUserRequest request) {
-         // basic validation (business rules belong in service)
+        // basic validation (business rules belong in service)
 
         if (request.getUsername() == null || request.getUsername().isBlank()) {
             throw new InvalidGnomeException("Username cannot be empty");
         }
 
         // DTO → Entity
-        User user = new User(null, null, null);
-        user.setUsername(request.getUsername());
+        User user = new User(
+                request.getUsername(),
+                request.getEmail(),
+                encoder.encode(request.getPassword()),
+                request.getRole(),
+                request.isEnabled());
 
         User saved = repository.save(user);
 
@@ -51,17 +58,11 @@ public class UserService {
         return repository.findByUsername(username);
     }
 
-     // mapper
+    // mapper
     private UserResponse toResponse(User user) {
 
-        UserResponse dto = new UserResponse(null, null, null);
+        return new UserResponse(user.getId(), user.getUsername(), user.getEmail(), user.getCreatedAt(),
+                user.isEnabled());
 
-        dto.setId(user.getId());
-        dto.setUsername(user.getUsername());
-        dto.setCreatedAt(user.getCreatedAt());
-
-        return dto;
     }
 }
-    
-

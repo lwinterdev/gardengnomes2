@@ -10,21 +10,25 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "gnome")
+@Table(name = "gnomes")
 public class Gnome {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
 
+    @Column(nullable = false)
     private String displayName;
 
     private Instant createdAt;
 
+    protected Gnome() {}
+
     public Gnome(String userName, String displayName) {
-        this.userName = userName;
+        this.username = userName;
         this.displayName = displayName;
     }
 

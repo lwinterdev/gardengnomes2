@@ -9,8 +9,8 @@ import java.util.UUID;
 
 public interface GnomeRepository extends JpaRepository<Gnome, UUID> {
 
-    Page<Gnome> findByNameContainingIgnoreCase(
-            String name,
+    Page<Gnome> findByDisplayNameContainingIgnoreCase(
+            String search,
             Pageable pageable
     );
 

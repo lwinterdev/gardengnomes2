@@ -25,7 +25,7 @@ public class GnomeController {
         return service.create(request);
     }
 
-  // READ ALL (pagination + sorting)
+    // READ ALL (pagination + sorting)
     @GetMapping
     public Page<Gnome> getAll(
             @RequestParam(defaultValue = "0") int page,
@@ -34,7 +34,7 @@ public class GnomeController {
             @RequestParam(defaultValue = "") String search
 
     ) {
-        return service.findAll(page, size, sortBy ,search);
+        return service.findAll(page, size, sortBy, search);
     }
 
     @GetMapping("/{id}")

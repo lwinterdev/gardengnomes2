@@ -18,7 +18,7 @@ public class GardengnomesApplication {
 
 	@GetMapping("path")
 	public String getMethodName(@RequestParam String param) {
-		return new String();
+		return "";
 	}
 	
 	@GetMapping("")
