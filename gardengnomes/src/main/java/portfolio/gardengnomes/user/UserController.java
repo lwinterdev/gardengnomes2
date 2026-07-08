@@ -1,5 +1,6 @@
 package portfolio.gardengnomes.user;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import portfolio.gardengnomes.user.dto.CreateUserRequest;
@@ -19,6 +20,7 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse create(@RequestBody CreateUserRequest user) {
         return service.create(user);
     }
@@ -34,6 +36,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable UUID id) {
         service.delete(id);
     }

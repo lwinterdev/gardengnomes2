@@ -1,5 +1,6 @@
 package portfolio.gardengnomes.feed_event;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import portfolio.gardengnomes.feed_event.dto.CreateFeedEventRequest;
 
@@ -21,8 +22,8 @@ public class FeedEventController {
     }
 
     @PostMapping
-    public FeedEvent create(
-            @RequestBody CreateFeedEventRequest request) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public FeedEvent create(@RequestBody CreateFeedEventRequest request) {
 
         return service.create(request);
     }

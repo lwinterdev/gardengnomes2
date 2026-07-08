@@ -3,6 +3,11 @@ package portfolio.gardengnomes.feed_event.dto;
 import java.time.Instant;
 import java.util.UUID;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class FeedEventResponse {
 
     private UUID id;
@@ -11,9 +16,6 @@ public class FeedEventResponse {
     private UUID entityId;
     private String entityType;
     private Instant createdAt;
-
-    public FeedEventResponse() {
-    }
 
     public FeedEventResponse(
             UUID id,
@@ -31,27 +33,4 @@ public class FeedEventResponse {
         this.createdAt = createdAt;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getActorId() {
-        return actorId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public UUID getEntityId() {
-        return entityId;
-    }
-
-    public String getEntityType() {
-        return entityType;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
 }

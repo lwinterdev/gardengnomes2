@@ -26,8 +26,8 @@ public class UserService {
         }
 
         // DTO → Entity
-        User user = new User();
-        user.setUserName(request.getUsername());
+        User user = new User(null, null, null);
+        user.setUsername(request.getUsername());
 
         User saved = repository.save(user);
 
@@ -54,10 +54,10 @@ public class UserService {
      // mapper
     private UserResponse toResponse(User user) {
 
-        UserResponse dto = new UserResponse();
+        UserResponse dto = new UserResponse(null, null, null);
 
         dto.setId(user.getId());
-        dto.setUserName(user.getUserName());
+        dto.setUsername(user.getUsername());
         dto.setCreatedAt(user.getCreatedAt());
 
         return dto;

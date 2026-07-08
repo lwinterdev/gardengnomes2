@@ -39,18 +39,11 @@ public class GnomeService {
         }
 
         // DTO → Entity
-        Gnome gnome = new Gnome();
-        gnome.setUserName(request.getUsername());
-        gnome.setDisplayName(request.getDisplayName());
-
+        Gnome gnome = new Gnome(request.getUsername(), request.getDisplayName());
         Gnome saved = repository.save(gnome);
 
-        CreateFeedEventRequest event = new CreateFeedEventRequest();
-        event.setActorId(saved.getId());
-        event.setType(FeedEventActionType.GNOME_CREATED);
-        event.setEntityId(saved.getId());
-        event.setEntityType(FeedEventEntityType.GNOME);
-
+        CreateFeedEventRequest event = new CreateFeedEventRequest(saved.getId(), FeedEventActionType.GNOME_CREATED, saved.getId(), FeedEventEntityType.GNOME);
+       
         feedEventService.create(event);
 
         return toResponse(saved);
@@ -62,8 +55,7 @@ public class GnomeService {
         Pageable pageable = PageRequest.of(
                 page,
                 size,
-                Sort.by(sortBy).descending()
-        );
+                Sort.by(sortBy).descending());
 
         if (search == null || search.isBlank()) {
             return repository.findAll(pageable);
@@ -76,9 +68,7 @@ public class GnomeService {
     public GnomeResponse findById(UUID id) {
 
         Gnome gnome = repository.findById(id)
-                .orElseThrow(() ->
-                        new GnomeNotFoundException("Gnome with id " + id + " not found")
-                );
+                .orElseThrow(() -> new GnomeNotFoundException("Gnome with id " + id + " not found"));
 
         return toResponse(gnome);
     }

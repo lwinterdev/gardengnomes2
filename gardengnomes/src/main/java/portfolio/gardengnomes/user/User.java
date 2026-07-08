@@ -1,11 +1,14 @@
 package portfolio.gardengnomes.user;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.UUID;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -17,7 +20,10 @@ public class User {
     @Column(unique = true)
     private String username;
 
-    private String passwordHash;
+    @Column(unique = true)
+    private String email;
+
+    private String password;
 
     private Instant createdAt;
 
@@ -27,36 +33,19 @@ public class User {
 
     private boolean enabled = true;
 
-    // getters/setters
-    public String getPassword(){
-        return this.passwordHash;
+       public User(
+            String username,
+            String email,
+            String password
+    ) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = Role.USER;
+        this.createdAt = Instant.now();
+        this.enabled = true;
     }
 
-    public void setPassword(String newPassword){
-        this.passwordHash = newPassword;
-    }
 
-    public String getUserName(){
-        return this.username;
-    }
-
-    public void setUserName(String newUsername){
-        this.username = newUsername;
-    }
-
-    public Role getRole(){
-        return this.role;
-    }
-
-    public void setRole(Role newRole){
-        this.role = newRole ;
-    }
-
-      public UUID getId(){
-        return this.id;
-    }
-
-    public Instant getCreatedAt(){
-        return this.createdAt;
-    }
+    
 }

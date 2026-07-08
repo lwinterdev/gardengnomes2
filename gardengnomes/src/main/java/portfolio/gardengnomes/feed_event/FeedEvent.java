@@ -1,10 +1,14 @@
 package portfolio.gardengnomes.feed_event;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "feed_event")
 public class FeedEvent {
@@ -28,47 +32,16 @@ public class FeedEvent {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    public FeedEvent() {
-        this.createdAt = Instant.now();
+    public FeedEvent(UUID actorId,
+            FeedEventActionType type,
+            UUID entityId,
+           FeedEventEntityType entityType
+    ) {
+         this.actorId = actorId;
+         this.type = type;
+         this.entityId = entityId;
+         this.entityType = entityType;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getActorId() {
-        return actorId;
-    }
-
-    public void setActorId(UUID actorId) {
-        this.actorId = actorId;
-    }
-
-    public FeedEventActionType getType() {
-        return type;
-    }
-
-    public void setType(FeedEventActionType type) {
-        this.type = type;
-    }
-
-    public UUID getEntityId() {
-        return entityId;
-    }
-
-    public void setEntityId(UUID entityId) {
-        this.entityId = entityId;
-    }
-
-    public FeedEventEntityType getEntityType() {
-        return entityType;
-    }
-
-    public void setEntityType(FeedEventEntityType entityType) {
-        this.entityType = entityType;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
+   
 }

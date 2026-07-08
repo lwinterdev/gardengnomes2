@@ -2,9 +2,13 @@ package portfolio.gardengnomes.feed_event.dto;
 
 import java.util.UUID;
 
+import lombok.Getter;
+import lombok.Setter;
 import portfolio.gardengnomes.feed_event.FeedEventEntityType;
 import portfolio.gardengnomes.feed_event.FeedEventActionType;
 
+@Getter
+@Setter
 public class CreateFeedEventRequest {
 
     private UUID actorId;
@@ -12,35 +16,17 @@ public class CreateFeedEventRequest {
     private UUID entityId;
     private FeedEventEntityType entityType;
 
-    public UUID getActorId() {
-        return actorId;
+      public CreateFeedEventRequest(
+        UUID actorId,
+            FeedEventActionType type,
+            UUID entityId,
+           FeedEventEntityType entityType
+    ) {
+         this.actorId = actorId;
+         this.type = type;
+         this.entityId = entityId;
+         this.entityType = entityType;
     }
 
-    public void setActorId(UUID actorId) {
-        this.actorId = actorId;
-    }
 
-    public FeedEventActionType getType() {
-        return type;
-    }
-
-    public void setType(FeedEventActionType type) {
-        this.type = type;
-    }
-
-    public UUID getEntityId() {
-        return entityId;
-    }
-
-    public void setEntityId(UUID entityId) {
-        this.entityId = entityId;
-    }
-
-    public FeedEventEntityType getEntityType() {
-        return entityType;
-    }
-
-    public void setEntityType(FeedEventEntityType entityType) {
-        this.entityType = entityType;
-    }
 }

@@ -16,12 +16,13 @@ public class FeedEventService {
 
     public FeedEvent create(CreateFeedEventRequest request) {
 
-        FeedEvent event = new FeedEvent();
+        FeedEvent event = new FeedEvent(
+            request.getActorId(),
+            request.getType(),
+            request.getEntityId(),
+            request.getEntityType()
+        );
 
-        event.setActorId(request.getActorId());
-        event.setType(request.getType());
-        event.setEntityId(request.getEntityId());
-        event.setEntityType(request.getEntityType());
 
         return repository.save(event);
     }
