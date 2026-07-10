@@ -1,5 +1,8 @@
 package portfolio.gardengnomes.user;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import portfolio.gardengnomes.gnome.exceptions.InvalidGnomeException;
@@ -41,8 +44,19 @@ public class UserService {
         return toResponse(saved);
     }
 
-    public List<User> findAll() {
-        return repository.findAll();
+    // READ ALL (pagination + sorting + optional search)
+    public Page<User> findAll(int page, int size, String sortBy, String search) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(sortBy).descending());
+
+        if (search == null || search.isBlank()) {
+            return repository.findAll(pageable);
+        }
+
+        return repository.findByDisplayNameContainingIgnoreCase(search, pageable);
     }
 
     public User findById(UUID id) {

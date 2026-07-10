@@ -1,12 +1,12 @@
 package portfolio.gardengnomes.user;
 
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import portfolio.gardengnomes.user.dto.CreateUserRequest;
 import portfolio.gardengnomes.user.dto.UserResponse;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,9 +25,15 @@ public class UserController {
         return service.create(user);
     }
 
-    @GetMapping
-    public List<User> getAll() {
-        return service.findAll();
+   @GetMapping
+    public Page<User> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "") String search
+
+    ) {
+        return service.findAll(page, size, sortBy, search);
     }
 
     @GetMapping("/{id}")
