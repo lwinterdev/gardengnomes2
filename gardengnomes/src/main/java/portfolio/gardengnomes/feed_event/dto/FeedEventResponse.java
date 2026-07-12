@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import lombok.Getter;
 import lombok.Setter;
+import portfolio.gardengnomes.feed_event.FeedEvent;
 
 @Getter
 @Setter
@@ -33,4 +34,14 @@ public class FeedEventResponse {
         this.createdAt = createdAt;
     }
 
+    public static FeedEventResponse from(FeedEvent event) {
+        return new FeedEventResponse(
+                event.getId(),
+                event.getActorId(),
+                event.getType().name(),
+                event.getEntityId(),
+                event.getEntityType().name(),
+                event.getCreatedAt()
+        );
+    }
 }

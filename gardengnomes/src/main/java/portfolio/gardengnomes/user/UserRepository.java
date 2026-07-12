@@ -15,6 +15,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     boolean existsByUsername(String username);
 
-    Page<User> findByDisplayNameContainingIgnoreCase(String search, Pageable pageable);
+    Page<User> findByUsernameContainingIgnoreCase(String search, Pageable pageable);
 
 }

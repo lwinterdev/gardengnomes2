@@ -9,7 +9,6 @@ import portfolio.gardengnomes.gnome.exceptions.InvalidGnomeException;
 import portfolio.gardengnomes.user.dto.CreateUserRequest;
 import portfolio.gardengnomes.user.dto.UserResponse;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,7 +55,7 @@ public class UserService {
             return repository.findAll(pageable);
         }
 
-        return repository.findByDisplayNameContainingIgnoreCase(search, pageable);
+        return repository.findByUsernameContainingIgnoreCase(search, pageable);
     }
 
     public User findById(UUID id) {

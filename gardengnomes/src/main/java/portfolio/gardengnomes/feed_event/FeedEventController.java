@@ -1,9 +1,12 @@
 package portfolio.gardengnomes.feed_event;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import portfolio.gardengnomes.feed_event.dto.CreateFeedEventRequest;
+import portfolio.gardengnomes.feed_event.dto.FeedPageResponse;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -26,5 +29,16 @@ public class FeedEventController {
     public FeedEvent create(@RequestBody CreateFeedEventRequest request) {
 
         return service.create(request);
+    }
+
+    @GetMapping
+    public FeedPageResponse getFeed(
+
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant before
+
+    ) {
+
+        return service.getFeed(before);
+
     }
 }
